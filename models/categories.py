@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column
-
 from models import db
+from models.questions import Question
 
 
 class Category(db.Model):
@@ -11,8 +11,9 @@ class Category(db.Model):
         primary_key=True,
         autoincrement=True
     )
-    name: Mapped[str] = mapped_column(
-        db.String(30)
-    )
+    name: Mapped[str] = mapped_column(db.String(50))
 
     questions: Mapped['Question'] = db.relationship('Question', back_populates='category')
+
+    def __repr__(self):
+        return "Category(id={}, name={})".format(self.id, self.name)
